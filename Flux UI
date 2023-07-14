@@ -26,26 +26,6 @@ local OrionLib = {
     SaveCfg = false
 }
 
--- Function to generate a rainbow color based on time
-local function getRainbowColor()
-    local time = tick() -- Current time
-    local frequency = 2 -- Adjust this value to control the speed of the rainbow effect
-    local r = math.sin(frequency * time + 0) * 127 + 128
-    local g = math.sin(frequency * time + 2) * 127 + 128
-    local b = math.sin(frequency * time + 4) * 127 + 128
-    return Color3.fromRGB(r, g, b)
-end
-
--- Function to update the stroke color with the rainbow effect
-local function updateRainbowStroke()
-    OrionLib.Themes.Rainbow.Stroke = getRainbowColor()
-end
-
--- Call the updateRainbowStroke function periodically to update the rainbow stroke color
-while true do
-    updateRainbowStroke()
-    wait(0.1) -- Adjust this value to control the speed of the color change
-end
 
 
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
