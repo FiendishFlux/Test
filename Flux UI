@@ -26,24 +26,6 @@ local OrionLib = {
     SaveCfg = false
 }
 
-local function getRainbowColor()
-    local time = tick()
-    local frequency = 2
-    local r = math.sin(frequency * time + 0) * 127 + 128
-    local g = math.sin(frequency * time + 2) * 127 + 128
-    local b = math.sin(frequency * time + 4) * 127 + 128
-    return Color3.fromRGB(r, g, b)
-end
-
-local function updateRainbowStroke()
-    OrionLib.Themes.Rainbow.Stroke = getRainbowColor()
-end
-
--- Call the updateRainbowStroke function periodically to update the rainbow stroke color
-while true do
-    updateRainbowStroke()
-    wait(0.1)
-end
 
 
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
