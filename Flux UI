@@ -14,18 +14,36 @@ local OrionLib = {
         Default = {
             Main = Color3.fromRGB(33, 33, 33),
             Second = Color3.fromRGB(50, 50, 50),
-            Stroke = Color3.new(), -- This will be replaced with the rainbow color
+            Stroke = Color3.fromRGB(255, 0, 0),
             Divider = Color3.fromRGB(60, 60, 60),
             Text = Color3.fromRGB(240, 240, 240),
             TextDark = Color3.fromRGB(150, 150, 150)
         },
-        Rainbow = {} -- Empty table to store rainbow colors
+        Rainbow = {}
     },
     SelectedTheme = "Default",
     Folder = nil,
     SaveCfg = false
 }
 
+local function getRainbowColor()
+    local time = tick()
+    local frequency = 2
+    local r = math.sin(frequency * time + 0) * 127 + 128
+    local g = math.sin(frequency * time + 2) * 127 + 128
+    local b = math.sin(frequency * time + 4) * 127 + 128
+    return Color3.fromRGB(r, g, b)
+end
+
+local function updateRainbowStroke()
+    OrionLib.Themes.Rainbow.Stroke = getRainbowColor()
+end
+
+-- Call the updateRainbowStroke function periodically to update the rainbow stroke color
+while true do
+    updateRainbowStroke()
+    wait(0.1)
+end
 
 
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
