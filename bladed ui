@@ -85,7 +85,15 @@ local function AddConnection(Signal, Function)
 	return SignalConnect
 end
 
+task.spawn(function()
+	while (OrionLib:IsRunning()) do
+		wait()
+	end
 
+	for _, Connection in next, OrionLib.Connections do
+		Connection:Disconnect()
+	end
+end)
 
 local function MakeDraggable(DragPoint, Main)
 	pcall(function()
@@ -154,7 +162,11 @@ local function SetChildren(Element, Children)
 	return Element
 end
 
-
+local function Round(Number, Factor)
+	local Result = math.floor(Number/Factor + (math.sign(Number) * 0.5)) * Factor
+	if Result < 0 then Result = Result + Factor end
+	return Result
+end
 
 local function ReturnProperty(Object)
 	if Object:IsA("Frame") or Object:IsA("TextButton") then
@@ -197,6 +209,7 @@ end
 
 local function UnpackColor(Color)
 	return Color3.fromRGB(Color.R, Color.G, Color.B)
+end
 
 local function LoadCfg(Config)
 	local Data = HttpService:JSONDecode(Config)
@@ -283,7 +296,7 @@ end)
 CreateElement("Frame", function(Color)
 	local Frame = Create("Frame", {
 		BackgroundColor3 = Color or Color3.fromRGB(255, 255, 255),
-		BorderSizePiel = 0
+		BorderSizePixel = 0
 	})
 	return Frame
 end)
@@ -339,7 +352,7 @@ end)
 
 CreateElement("ImageButton", function(ImageID)
 	local Image = Create("ImageButton", {
-		Image = ImagID,
+		Image = ImageID,
 		BackgroundTransparency = 1
 	})
 	return Image
@@ -348,7 +361,8 @@ end)
 CreateElement("Label", function(Text, TextSize, Transparency)
 	local Label = Create("TextLabel", {
 		Text = Text or "",
-		TextColor3 ency = Transparency or 0,
+		TextColor3 = Color3.fromRGB(240, 240, 240),
+		TextTransparency = Transparency or 0,
 		TextSize = TextSize or 15,
 		Font = Enum.Font.Gotham,
 		RichText = true,
@@ -424,7 +438,7 @@ function OrionLib:MakeNotification(NotificationConfig)
 		wait(0.3)
 		TweenService:Create(NotificationFrame.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {Transparency = 0.9}):Play()
 		TweenService:Create(NotificationFrame.Title, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {TextTransparency = 0.4}):Play()
-		TweenServicereate(NotificationFrame.Content, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {TextTransparency = 0.5}):Play()
+		TweenService:Create(NotificationFrame.Content, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {TextTransparency = 0.5}):Play()
 		wait(0.05)
 
 		NotificationFrame:TweenPosition(UDim2.new(1, 20, 0, 0),'In','Quint',0.8,true)
